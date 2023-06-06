@@ -1,0 +1,54 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func main() {
+	playGame()
+
+	for {
+		fmt.Println("deseja jogar novamente? (s/n)")
+		var choice string
+		fmt.Scanln(&choice)
+
+		if choice == "s" {
+			playGame()
+		} else if choice == "n" {
+			fmt.Println("obrigado por jogar! Até a próxima.")
+			break
+		} else {
+			fmt.Println("opção inválida. Digite 's' para jogar novamente ou 'n' para sair.")
+		}
+	}
+}
+
+func playGame() {
+	// gerar um número aleatório entre 1 e 100
+	rand.Seed(time.Now().UnixNano())
+	secretNumber := rand.Intn(100) + 1
+
+	fmt.Println("bem-vindo ao jogo de adivinhação!")
+	fmt.Println("o jogo é: adivinhar um número entre 1 e 100!")
+
+	var guess int
+	numAttempts := 0
+
+	for {
+		fmt.Print("digite sua tentativa: ")
+		fmt.Scanln(&guess)
+
+		numAttempts++
+
+		if guess > secretNumber {
+			fmt.Println("palpite alto. Tente um número menor.")
+		} else if guess < secretNumber {
+			fmt.Println("palpite baixo. Tente um número maior.")
+		} else {
+			fmt.Printf("parabéns! Você acertou o número em %d tentativas.\n", numAttempts)
+			break
+		}
+	}
+}
